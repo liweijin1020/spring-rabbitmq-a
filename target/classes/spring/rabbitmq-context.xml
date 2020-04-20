@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+   http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <!--1定义RabbitMQ的连接工厂-->
+    <rabbit:connection-factory id="connectionFactory" host="192.168.10.129" port="5672" username="weijin.li" password="weijin.li" virtual-host="testhost"/>
+
+    <!--2MQ的管理，包括交换机，队列等-->
+    <rabbit:admin connection-factory="connectionFactory"/>
+    <!--3定义交换机-->
+    <rabbit:topic-exchange name="topic_exchange_a" auto-declare="true"></rabbit:topic-exchange>
+    <!--4定义rabbit模板，指定连接工厂以及定义exchange(exchange要和上面的一致)-->
+    <!--<rabbit:template id="rabbitTemplate" connection-factory="connectionFactory" exchange="topic_exchange_a"/>-->
+    <rabbit:fanout-exchange name="fanout_Exchange_a" auto-declare="true" ></rabbit:fanout-exchange>
+
+</beans>
